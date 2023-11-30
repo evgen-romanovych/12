@@ -1,26 +1,12 @@
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+const fs = require('fs')
+let text = fs.readFileSync('person.txt')
 
-function afterDelay() {
-    console.log('молодець.');
-    rl.close();
-}
+let arr = []
+text = text.toString()
+arr = JSON.parse(text)
 
-rl.question('Введіть інтервал затримки в мілісекундах: ', (interval) => {
-    interval = parseInt(interval);
+arr.forEach((person, index) => {
+	console.log(`${index + 1}. ${person.name} ${person.surname} ${person.birthday} ${person.email}`)
+})
 
-    if (!isNaN(interval) && interval > 0) {
-        setTimeout(afterDelay, interval);
-    } else {
-        console.log('Будь ласка, введіть число більше 0.');
-        rl.close();
-    }
-});
-
-rl.on('close', () => {
-    console.log('красава.');
-    process.exit(0);
-});
+console.log()
